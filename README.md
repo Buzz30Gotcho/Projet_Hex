@@ -1,34 +1,44 @@
 # Projet_Hex
+===================
 
-Etape 1 :
-Ouvrir le terminal dans le dossier JavaScripts puis ecrire node serveur….
+Étape 1 : Lancer le serveur
+---------------------------
+Ouvrez le terminal dans le dossier `JavaScript` puis tapez :  
+node serveur
 
+Étape 2 : Configurer la partie
+------------------------------
+- Saisissez votre nom.
+- Configurez le nombre de joueurs (de 2 à 4).
+- Configurez le damier.
+- Cliquez sur "Entrer dans la Partie".
 
-Etape 2 :
-Saisir son nom puis configurer le nombre de joueur allant de 2 à 4 joueur et ensuite
-configurer le damier.
-Ensuite cliquer sur Entrer Dans la Partie
+Étape 3 : Page d’attente
+-------------------------
+Vous serez dirigé vers la page d’attente contenant :
+- Une messagerie pour communiquer avec les autres joueurs.
+- Deux boutons : "Quitter" et "Jouer".
 
-Etape 3 :
-Vous serez diriger vers cette page d’attente où il y aura une messagerie et deux bouton quitter et jouer mais on ne peux jouer que si un deuxième joueur est entré .
+Attention :  Vous ne pouvez jouer que lorsqu’un deuxième joueur est entré.
 
-Etape 4 :
-Aller sur un nouvel onglet puis taper l’url suivant :  http://localhost:8088/
-Pour que un autre joueur puisse entrer.
+Étape 4 : Ajouter un autre joueur
+---------------------------------
+Ouvrez un nouvel onglet et tapez l’URL suivante :  
+http://localhost:8088/
 
-Etape 5 :
-Appuyer sur le bouton joueur puis aller dans l’autre onglet et faire de même pour l’autre joueur si vous avez choisi plus de joueur vous faites la meme chose avec chacun.
+Un autre joueur pourra ainsi rejoindre la partie.
 
+Étape 5 : Rejoindre la partie
+-----------------------------
+- Appuyez sur le bouton "Joueur" dans le nouvel onglet.
+- Répétez cette opération pour chaque joueur supplémentaire si vous avez choisi plus de 2 joueurs.
 
-Les joueur peuvent se parler dans la messagerie.
+> Les joueurs peuvent communiquer entre eux via la messagerie.
 
-Etape 6 :
-Les deux joueur peuvent jouer et toujours se parler sur la messagerie ,
-à 2 à 3 et meme à 4 joueur selons ce que vous avez configurer.
+Étape 6 : Jouer
+----------------
+- Tous les joueurs présents peuvent jouer et continuer à utiliser la messagerie.
+- La partie peut se dérouler à 2, 3 ou 4 joueurs selon votre configuration.
 
-Vous pouvez quitter en plein partie les autre reste et si vous voulez tout recommencer le jeux en entier il faut que tout les joueur sort pour refaire la partie a nouveau .
-
-
-
-
-
+Attention : Si un joueur quitte en cours de partie, les autres continuent.
+Pour recommencer une partie depuis zéro, tous les joueurs doivent quitter puis relancer le jeu.
