@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+     <script src="https://d3js.org/d3.v7.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+     <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+
+     <script>
+
+      var longueur = 0;
+      var largeur = 0;
+      $.getJSON("http://localhost:8088/longueur/",function(data){
+         longueur=data;
+      });
+      $.getJSON("http://localhost:8088/largeur/",function(data){
+         largeur = data;
+      });
+
+
+      window.addEventListener('load', (event) => {
+         setTimeout(function(){
+            genereDamier(20,longueur, largeur);
+         },1000);
+                  
+      });   
+       
+
+
+function creeHexagone(rayon) {
+   var points = new Array();
+   for (var i = 0; i < 6; ++i) {
+       var angle = i * Math.PI / 3;
+       var x = Math.sin(angle) * rayon;
+       var y = -Math.cos(angle) * rayon;
+        console.log("x="+Math.round(x*100)/100+" y="+Math.round(y*100)/100);
+       points.push([Math.round(x*100)/100, Math.round(y*100)/100]);
+   }
+   return points;
+}
+
+
+ 
+ var couleursss = "";
+ var url = window.location.href.split("/"); 
+ $.getJSON('http://localhost:8088/couleur/' + url[url.length-1],function(data){couleursss=data}); 
+ var JoueurHex = url[url.length-1];
+ console.log(url);
+
+ 
+ var Hex = [];
+ var Jeton = 0;
+
+ setInterval(()=>{
+ fetch('http://localhost:8088/TableauHex').then(response => response.json()).then(data => Hex=data);
+ console.log(Hex);
+},100); 
+
+
+ var lesJoueur = [];
+ setTimeout(()=>{
+ fetch('http://localhost:8088/joueur').then(response => response.json()).then(data => lesJoueur=data);
+},100);
+
+
+
+
+ 
+
+var caseDebutFin = [];//
+
+
+function genereDamier(rayon, nbLignes, nbColonnes) {
+ distance =  rayon - (Math.sin(1 * Math.PI / 3) * rayon);
+ d3.select("#tablier").append("svg").attr("width", (nbLignes*2)*2*rayon).attr("height",
+ nbLignes*2*rayon);
+ var hexagone = creeHexagone(rayon);
+
+ for (var ligne=0; ligne < nbLignes; ligne++) {
+    for (var colonne=0; colonne < nbColonnes; colonne++) {
+          var d = "";
+          var x, y;
+          for (h in hexagone) {
+             x = hexagone[h][0]+(rayon-distance)*(2+2*colonne);
+             y = distance*2 + hexagone[h][1]+(rayon-distance*2)*(1+2*ligne);
+             if (h == 0) d += "M"+x+","+y+" L";
+             else        d +=     x+","+y+" ";
+
+          }
+          
+          if(ligne==0 || colonne==0 || ligne==nbColonnes-1 || colonne==nbColonnes-1){
+               caseDebutFin.push(ligne*11+colonne);
+            }
+
+          d += "Z";
+          
+
+         setInterval(()=>{
+           
+        
+            if(JoueurHex==lesJoueur[0]){
+               for(let i=0;i<121;i++){
+                        if(Hex[i]==0){
+                           d3.select("#h"+i)
+                           .attr("fill", "red")
+                        }
+                        if(Hex[i]==1){
+                           d3.select("#h"+i)
+                           .attr("fill", "blue")
+                        }
+                        if(Hex[i]==2){
+                           d3.select("#h"+i)
+                           .attr("fill", "green")
+                        }
+                        if(Hex[i]==3){
+                           d3.select("#h"+i)
+                           .attr("fill", "black")
+                        }
+                     }
+                  }
+            else if(JoueurHex==lesJoueur[1]){
+               for(let i=0;i<121;i++){
+                        if(Hex[i]==0){
+                           d3.select("#h"+i)
+                           .attr("fill", "red")
+                        }
+                        if(Hex[i]==1){
+                           d3.select("#h"+i)
+                           .attr("fill", "blue")
+                        }
+                        if(Hex[i]==2){
+                           d3.select("#h"+i)
+                           .attr("fill", "green")
+                        }
+                        if(Hex[i]==3){
+                           d3.select("#h"+i)
+                           .attr("fill", "black")
+                        }
+               }}
+            else if(JoueurHex==lesJoueur[2]){
+               for(let i=0;i<121;i++){
+                        if(Hex[i]==0){
+                           d3.select("#h"+i)
+                           .attr("fill", "red")
+                        }
+                        if(Hex[i]==1){
+                           d3.select("#h"+i)
+                           .attr("fill", "blue")
+                        }
+                        if(Hex[i]==2){
+                           d3.select("#h"+i)
+                           .attr("fill", "green")
+                        }
+                        if(Hex[i]==3){
+                           d3.select("#h"+i)
+                           .attr("fill", "black")
+                        }
+               }}
+            else if(JoueurHex==lesJoueur[3]){
+               for(let i=0;i<121;i++){
+                        if(Hex[i]==0){
+                           d3.select("#h"+i)
+                           .attr("fill", "red")
+                        }
+                        if(Hex[i]==1){
+                           d3.select("#h"+i)
+                           .attr("fill", "blue")
+                        }
+                        if(Hex[i]==2){
+                           d3.select("#h"+i)
+                           .attr("fill", "green")
+                        }
+                        if(Hex[i]==3){
+                           d3.select("#h"+i)
+                           .attr("fill", "black")
+                        }
+               }}
+            else{
+               for(let i=0;i<121;i++){
+                        if(Hex[i]=-1){
+                           d3.select("#h"+i)
+                           .attr("fill", "white")
+                           
+                        }  
+                     }
+               
+            }   
+      },100);
+      
+
+          d3.select("svg")
+             .append("path")
+             .attr("d", d)
+             .attr("stroke", "black")
+             .attr("fill", "white") 
+             .attr("id","h"+(ligne*11+colonne)) 
+             .on("click", function(d){
+            
+                  
+                  console.log(d3.select(this).attr('id'));
+                  let k = "";
+                  k = d3.select(this).attr("id");
+
+                  let t = [];
+                  t = k.split("h");
+                  let p = 0;
+                  p = parseInt(t[1]);
+                  console.log(p);
+
+                  
+
+            var numJoueur = 0;
+            switch(couleursss){
+               case "red":
+                  numJoueur = 0;
+                  break;
+               case "blue":
+                  numJoueur = 1;
+                  break;
+               case "green":
+                  numJoueur = 2;
+                  break;
+               case "black":
+                  numJoueur = 3;
+                  break;
+               default:
+                  break;
+            }
+
+
+            setTimeout(()=>{
+               fetch('http://localhost:8088/etatJeton').then(response => response.json()).then(data => Jeton=parseInt(data));
+               console.log(Jeton);
+            },50);
+
+            setTimeout(()=>{
+               if(Hex[p]!=-1){}
+               else if(numJoueur!=Jeton){} 
+               else{
+                  $.getJSON('http://localhost:8088/pion/' + p + '/' + numJoueur);
+               } 
+            },100);
+      
+
+            });
+
+       }
+       
+  }
+}
+
+console.log(caseDebutFin);
+
+function quitter(){
+        fetch("http://localhost:8088/sortie/"+url[url.length-1]);
+        setTimeout(()=>{
+         window.location.replace("http://localhost:8088/");
+        },50)
+        
+    }
+
+</script>
+
+
+<script>
+const socket = io(); 
+var url =window.location.href.split("/");
+
+let reqMessage = () =>{
+fetch("http://127.0.0.1:8088/sendMessage/" + url[url.length-1] + '/' + $(message).val());
+}
+
+socket.on('update_tchat',function(data){
+$('#writtchat').append('<p>'+data.player+ " : "+data.message+'</p>');
+});
+</script>
+
+  </head>
+
+  <style>
+   .tchat{
+    background-color: grey;
+     height: 85vh;
+      width: 22vw;
+      border-radius: 1em;
+    overflow: hidden;
+    text-align: center;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+   
+
+  
+  }
+  
+  .write_tchat button{
+    margin-left: 180px;
+    
+  }
+  
+  .tchatz{
+    text-align: center;
+  }
+  
+  .write_tchat{
+    width: 100%;
+    background-color: rgb(21, 23, 21);
+    color: #d2c8c8;
+    padding: 20px 20px;
+  
+    height: 80%;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+  }
+  </style>
+
+  <style>
+   .rotation{
+      transform: rotate(-45deg);
+      position: absolute;
+      left:500px;
+      top: 10px;
+   }
+
+   #boutonQuitter{
+
+      font-family: "Times New Roman", Times, serif;
+      font-size: 30px;
+      background-color: grey;
+      color: black;
+
+   }
+
+   #CouleurA{
+      background-color: grey;
+      width: 280px;
+      height: 50px;
+      margin: left;
+      border: solid rgb(105, 100, 100) 1px;
+   }
+   </style>
+
+  <body>
+         <div class="tchat">
+            <h1 class="tchatz">Live Tchat</h1>
+            <div id ="writtchat" class="write_tchat"></div>
+            <input id="message" type="text" class="form-control" value="" placeholder="write your message..." required style="width:185px;">
+            <button id="sendMessage" onclick="reqMessage()" type="button">Send Message</button>  
+      </div>
+
+
+      <div id="tablier" class="rotation"></div>
+      <br>
+      <div id="CouleurA" >
+      <label id="boutonQuitter" >Quitter la Partie : </label>
+      <input type="button" value="quitter" onclick="quitter()">
+      </div>
+
+</body></html>

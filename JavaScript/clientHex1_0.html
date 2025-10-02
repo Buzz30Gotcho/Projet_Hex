@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            padding: 20px;
+        }
+      
+      .titre{
+        border-bottom:1px solid black;
+      }
+      .container{
+        box-shadow: 5px 5px 24px 5px rgba(0,0,0,0.24);
+        height: 90vh;
+        width: 75vw;
+        border-radius: 1em;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        background-image: radial-gradient(#d2c8c8,rgb(130, 130, 152));
+        margin-right: 10px;
+      }
+      
+      .header{
+        width: 100%;
+        height: max-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+      }
+     
+      .container_form{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 90%;
+        width: 100%;
+      }
+      .dashboard{
+        height: 430px;
+        width: 520px;
+        border-radius: 1em;
+        font-size: 17px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 100px;
+        background-image: radial-gradient(#686060,rgb(130, 130, 152));
+      
+      }
+      .c_{
+        margin-bottom: 10px;
+      }
+      .container_btn{
+        width: 45%;
+        display: flex;
+        height: 50px;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 3px;
+        overflow: hidden;
+      
+      }
+
+      .f{
+        color: green;
+        font-size: 20px ;
+      }
+
+      .d{
+        font-size: 25px ;
+      }
+            </style>
+
+
+            <div class="container">
+                <h1 class="titre">Bienvenue au Jeu De Hex</h1>
+                <div class="header">
+                </div>
+                <div class="container_form">
+                    
+                    <div class="dashboard">
+
+                        
+            <div class="c_">
+                <p id="Plein"></p>
+                <label class="d" class="form-labrelativeel" for="nom" >Saisir votre nom</label>
+                <input type="text" class="form-control" id="nom"  value="" >
+                <button class="f" type="button"  onclick="entrerPartie()" class="btn btn-success">Entrer</button>
+            </div>
+
+
+</body>
+
+<script>
+
+var lesJoueur = [];
+nbJoueur = -1;
+
+
+fetch('http://localhost:8088/joueur').then(response => response.json()).then(data => lesJoueur=data);
+fetch('http://localhost:8088/nbJoueur').then(response => response.json()).then(data => nbJoueur=data);
+setTimeout(()=>{
+  console.log(nbJoueur);
+  console.log(lesJoueur);
+},50);
+
+
+
+function entrerPartie(){
+        let nom = document.getElementById("nom").value;// donc ici le "nom" ça vient de id="nom" non pas de value="nom" nom donc value laisser a vide
+
+setTimeout(()=>{
+      console.log(nbJoueur);
+      console.log(lesJoueur);
+  
+      if(lesJoueur.length < nbJoueur){
+
+        if(nom != "" && nom != " "){
+  
+            $.getJSON("http://localhost:8088/entree/" + nom ,(data) => {
+                
+
+                if(nom == data.joueurs[0]){
+                    numJoueur=0;
+                    couleur = couleurs[0];
+                }
+                else if(nom == data.joueurs[1]) {
+                    numJoueur=1;
+                    couleur = couleurs[1];
+                }
+                else if(nom == data.joueur[2]){
+                    numJoueur=2;
+                    couleur = couleurs[2];
+                }
+                else{
+                    numJoueur=3;
+                    couleur = couleurs[3];
+                }
+            });
+
+        }
+        setTimeout(() => {
+            window.location.replace("http://localhost:8088/salleAttente/" + nom);
+        },50);
+
+    }
+    else{
+      $("#Plein").text("IL N'Y A PLUS DE PLACE ACTUELLEMENT !");
+    }
+
+},50);
+
+}
+
+</script>
+
+</html>

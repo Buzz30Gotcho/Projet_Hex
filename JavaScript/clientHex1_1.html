@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8"/> 
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+        
+        <style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        padding: 20px;
+    }
+  
+  .titre{
+    border-bottom:1px solid black;
+  }
+  .container{
+    box-shadow: 5px 5px 24px 5px rgba(0,0,0,0.24);
+    height: 90vh;
+    width: 75vw;
+    border-radius: 1em;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-image: radial-gradient(#d2c8c8,rgb(130, 130, 152));
+    margin-right: 10px;
+  }
+  
+  .header{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  .list_joueur{
+    width: 500px;
+    height: 500px;
+    background-image: radial-gradient(#686060,rgb(130, 130, 152));
+    border-radius: 1em;
+    box-shadow: 5px 5px 24px 5px rgba(0,0,0,0.24);
+    display: flex;
+    font-size: 45px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container_form{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 90%;
+    width: 100%;
+  }
+  .dashboard{
+    height: 430px;
+    width: 520px;
+    border-radius: 1em;
+    font-size: 17px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 100px;
+    /*background-color: rgba(226, 218, 218, 0.528);*/
+    background-image: radial-gradient(#686060,rgb(130, 130, 152));
+  
+  }
+  .c_{
+    margin-bottom: 10px;
+  }
+  .container_btn{
+    width: 45%;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 3px;
+    overflow: hidden;
+  
+  }
+  
+  .tchat{
+    background-color: grey;
+     height: 85vh;
+      width: 22vw;
+      border-radius: 1em;
+    overflow: hidden;
+    text-align: center;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+  
+  }
+  
+  .write_tchat button{
+    margin-left: 180px;
+    
+  }
+  
+  .tchatz{
+    text-align: center;
+  }
+  
+  .write_tchat{
+    width: 100%;
+    background-color: rgb(21, 23, 21);
+    color: #d2c8c8;
+    padding: 20px 20px;
+  
+    height: 80%;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+  }
+  
+  
+      
+  
+
+        </style>
+
+    </head>
+
+    <body>
+
+        
+            <div class="tchat">
+                    <h1 class="tchatz">Live Tchat</h1>
+                    <div id ="writtchat" class="write_tchat"></div>
+                    <input id="message" type="text" class="form-control" value="" placeholder="write your message..." required style="width:185px;">
+                    <button id="sendMessage" onclick="reqMessage()" type="button">Send Message</button>  
+            </div>
+    
+    <script>
+        const socket = io(); 
+        var url =window.location.href.split("/");
+
+
+  $.getJSON("/joueur/",function(data){
+    console.log(data)
+    console.log(data)
+  })
+
+let reqMessage = () =>{
+
+fetch("http://127.0.0.1:8088/sendMessage/" + url[url.length-1] + '/' + $(message).val());
+
+}
+
+socket.on('update_tchat',function(data){
+$('#writtchat').append('<p>'+data.player+ " : "+data.message+'</p>');
+});
+
+
+    console.log(url[url.length-1]);
+    
+    function quitterPartie(){
+    fetch('http://localhost:8088/sortie/' + url[url.length-1])
+    .then(res=>res.json())
+    .then(data=>{window.location.replace("http://localhost:8088/")})
+    }
+
+    socket.on('update_listejoueurs',function(data){
+            let d = 0;
+            for(let i=1; i<4;i++){
+                $(".p"+i).html("");
+            }
+            for(let i=1; i<5;i++){
+                $(".p"+i).html(data[d]);
+                d++;
+            }
+            d=0;
+        });
+
+
+
+    function Jouer(){
+    
+       var tableauJoueur = [];
+       var nombreDeJoueur = -1;
+       $.getJSON("http://localhost:8088/joueur/",(data) => {tableauJoueur=data;});
+       $.getJSON("http://localhost:8088/nbJoueur/",(data) => {nombreDeJoueur=data;});
+       
+                setTimeout(function(){
+
+            console.log(tableauJoueur);
+            console.log(nombreDeJoueur);
+
+            if(tableauJoueur.length == 1){
+                window.location.replace('http://localhost:8088/salleAttente/' + url[url.length-1]);//nous renvoie vers la salle d'attent
+            }
+            else if( tableauJoueur.length <= nombreDeJoueur ){
+               console.log(url[url.length-1])
+               window.location.replace('http://localhost:8088/JeuxHex/'+ url[url.length-1]);
+               
+            }
+            else{
+                
+                setTimeout(()=>{
+                    $.getJSON("http://localhost:8088/url/" + url[url.length-1]);
+                },50);
+                
+                window.location.replace('http://localhost:8088/salleAttente/' + url[url.length-1]);//nous renvoie vers la salle d'attent
+                
+            }
+        },50);    
+    }
+
+
+
+
+
+
+    </script>
+    
+
+    <div class="container">
+        <h1 class="titre">Bienvenue au Jeu De Hex</h1>
+        <div class="header">
+        </div>
+        <div class="container_form">
+            
+            <div class="dashboard">
+
+            
+
+                <div class="container_btn">
+                    <button type="button" onclick="quitterPartie()" class="btn btn-danger" >Quitter</button>
+                    <button type="button"  onclick="Jouer()" class="btn btn-success">Jouer</button>
+                </div>
+                
+
+            </div>
+
+            <div class="list_joueur">
+                <h1>Listes Joueurs:</h1>
+                <p class="p1"></p>
+                <p class="p2"></p>
+                <p class="p3"></p>
+                <p class="p4"></p>
+
+            </div>
+
+
+        </div>
+
+</div>
+
+
+    </body>
+</html>

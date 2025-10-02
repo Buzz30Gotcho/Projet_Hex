@@ -1,0 +1,136 @@
+
+* {
+  padding:  0;
+  margin: 0;
+}
+
+body{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.ConfigurationJeu{
+  display: flex;
+  height: 80vh;
+  width: 40vw;
+  background-color: rgb(238, 238, 238);
+  border-radius: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.attribut_{
+  font-size: 20px;
+  margin-top: 15px;
+  height: 18vh;
+  width: 25vw;  
+
+}
+
+.casenbjoueur{
+  border-radius: 6px;
+  border-radius: 6px;
+  height: 5vh;
+  width: 10vw;
+}
+
+
+.container_nom_attribut{
+  background-color: #dee2e6;
+  height: 18vh;
+  width: 25vw;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+padding: 20px;
+font-size: 20px;
+
+}
+
+.config_damier{
+  background-color: rgba(0, 0, 0, 0.107);
+  height: 38vh;
+  width: 35vw;
+  border-radius: 1em;
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+
+}
+
+
+.long_larg{
+  display: flex;
+  text-align: center;
+}
+.text_config_damier{
+font-size: 25px;
+  text-align: center;
+  margin-bottom: 100px;
+  border-bottom:1px solid black;
+}
+
+.container_{
+  display: flex;
+  justify-content: center;
+align-items: center;
+padding: 10px;
+margin-bottom: 30px;
+
+
+}
+
+.largeur{
+  font-size: 25px;
+  
+}
+
+.longueur{
+  
+  font-size: 25px;
+}
+
+.largeurtext{
+  margin-left: 30px;
+  border-radius: 5px;
+  width: 7vw;
+
+}   
+
+.longueurtext{
+  margin-left: 30px;
+  border-radius: 5px;
+  width: 7vw;
+
+}
+
+.button_entre_partie{
+  height: 3vh;
+  width: 10vw;
+}
+
+.jouer button:hover{
+  background-color:green;
+}
+.text{
+  border-radius: 6px;
+  height: 5vh;
+  width: 10vw;
+}
+
+
+
+
+
+
+
+
+
+
+
+

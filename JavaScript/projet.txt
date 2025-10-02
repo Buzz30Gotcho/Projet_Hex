@@ -1,0 +1,87 @@
+PERSONNE AYANT PARTICIPER AU PROJET JAVASCRIPT
+Sar Frederic
+El hilali Hamza        
+
+------------------------------------------------
+
+
+Rapport 
+
+
+--------------------------
+
+
+Commencement :
+Attention le port est 8088
+
+Dans le terminal: 
+Aller dans le dossier du fichier
+Entrer dans le terminal : node serveurHex1_3.js
+-------
+
+Mettez dans la route http://localhost:8088/ dans le navigateur
+Le premier joueur va mettre:
+-son nom 
+-le nombre de joueur qui va jouer
+-la configuration du damier c'est-a-dire (longueur et largeur du damier)
+
+
+-----
+
+Pour les autres joueurs:
+Dupliquer l'onglet quand vous commencer le jeu puis enlever la route (salleAttente/nom_du_premierjoueur_entrant) et en laissant http://localhost:8088/
+Par exemple Si vous avez mis 2 joueurs a la configuration dupliquer une seule fois la fenetre et rentrer le joueurs en enlevant la route salleAttente/nom_du_premier_joueur et laissez http://localhost:8088/
+Si vous avez mis 3 joueurs a la configuration, dupliquer 2 fois etc...et rentrez a chaque fois les joueurs en enlevant la route (salleAttente/nom_du_premierjoueur_entrant) et en laissant http://localhost:8088/
+
+-----
+
+Implementation/  boutton Jouer:
+Le premier joueur ne peut pas jouer si les autres joueurs(depend du nombre de joueur mis dans la configuration) ne sont pas rentrer dans la partie, sinon il sera mis dans la salle d'attente.
+Quand les autres joueurs sont rentres, la partie peut commencer
+
+------
+Chaque joueur lui est attribue une couleur:
+1er joueur-> rouge 
+2eme joueur -> couleur bleu
+3eme joueur -> couleur vert
+4eme joueur -> couleur noir
+ 
+ -----
+ 
+Implementation/ Partie jeu:
+Chaque joueur peut joueur peut cochez une case
+Un joueur ne peut pas cochez deux cases de suite, il doit attendre le prochain(depend du nombre de joueur)
+-----
+
+ Implementation/ boutton Quitter:
+ Si le premier joueur quitte il retournera a la page de saisie d'un autre joueur
+ Le dernier joueur ayant quittez la partie retounera a la page de configuration du jeu Hex
+ 
+ -----
+ 
+ On peut voir la liste des joueurs a droite 
+ A chaque fois que quelqu'un est rentre, le joueur/se est rajoute dans la liste
+ Si quelqu'un quitte, le nom du joueur est directement enleve de la liste et ainsi de suite
+ 
+ Attention Rappel:  le port est 8088
+ 
+La Partie Tchat:
+Chaque joueur peut envoyer des messages et chacun peut voir ce qu'il/elle a envoye et ce que les autres ont onvoyé.
+Chaque message est suivi du nom du joueur. Exemple: nom_du_joueur : message_envoye_par_le_joueur
+On peut voir tous les messages dans la route : http://localhost:8088/message 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
