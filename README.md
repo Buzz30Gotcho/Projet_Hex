@@ -33,7 +33,7 @@ Un autre joueur pourra ainsi rejoindre la partie.
 - Appuyez sur le bouton "Joueur" dans le nouvel onglet.
 - Répétez cette opération pour chaque joueur supplémentaire si vous avez choisi plus de 2 joueurs.
 
-> Les joueurs peuvent communiquer entre eux via la messagerie.
+Les joueurs peuvent communiquer entre eux via la messagerie.
 
 Étape 6 : Jouer
 ----------------
